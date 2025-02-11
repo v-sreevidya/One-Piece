@@ -7,37 +7,37 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
    
     <div class="story-container">
         <textarea id="storyText" readonly></textarea>
     </div>
 
-   
-    <div id="hiddenStories" >
+    <div id="hiddenStories">
+        <!--Section 1-->
+        <p data-image="images/background1.webp">For centuries, the world has been bound by chains—secrets buried in the Void Century...</p>
+        <p data-image="images/background1.webp">But now, the tides have turned...</p>
+        <p data-image="images/background1.webp">Alongside the Straw Hat Pirates...</p>
+        <p data-image="images/background1.webp">This is the last stand...</p>
+        <!--Section 2-->
+        <p data-image="images/sceneone.jpg">Mariejois is in flames. The final war has begun.</p>
+        <p data-image="images/sceneone.jpg">Luffy and the Straw Hats charge through Admirals...</p>
+        <p data-image="images/imu.jpg">Then—Imu descends from the shadows...</p>
+        <p data-image="images/imu.jpg">Luffy grins, his heartbeat pounding...</p>
 
-        <!--Part 1-->
-        <p data-image="images/background1.webp">For centuries, the world has been bound by chains—secrets buried in the Void Century, the iron grip of the Celestial Dragons, and the absolute rule of the World Government. The truth of the world has remained hidden, and those who seek freedom have been hunted down, silenced before they could shake the foundations of power.</p>
-        <p data-image="images/background1.webp" >But now, the tides have turned...
-            
-Monkey D. Luffy, the man who would become Pirate King, has reached the final    battleground.
-
-        </p>
-        <p data-image="images/background1.webp"> Alongside the Straw Hat Pirates, the Revolutionary Army, and allies from every corner of the sea, he launches an all-out assault on Mariejois, the very heart of oppression. 
-Their enemy? Imu—the shadow ruler of the world, an existence that predates all known history. </p>
-        <p data-image="images/background1.webp">
-This is the last stand. The battle that will shape the future. And in war, there is always a price to pay.</p>
-
-
-<!--Part 2-->
-<p data-image="images/sceneone.jpg" >
-Mariejois is in flames. The final war has begun.</p>
-
- <p data-image="images/sceneone.jpg" >Luffy and the Straw Hats charge through Admirals, Holy Knights, and the Five Elders, each transformed into monstrous forms. Explosions shake the battlefield as Zoro’s swords clash against an Admiral, Sanji’s kicks tear through enemies, and Robin vanishes into the shadows, searching for the last Poneglyph.</p>
-
-
+       
+        <p data-video="images/gear5video.mp4" data-choice="true">"I don’t care who you are!" Luffy roars. "I’m kicking you out of that throne!"</p>
     </div>
 
+   
+    <div id="dialogueBox" class="dialogue-box" style="display: none;"></div>
+
+   
+    <div class="choices" id="choicesContainer" style="display: none;">
+        <button class="premium-choice" onclick="chooseOption(1)">Luffy charges straight at Imu, unleashing his strongest attack.</button>
+        <button onclick="chooseOption(2)">Zoro and Sanji lead the charge, cutting through Imu’s elite guards.</button>
+        <button onclick="chooseOption(3)">Robin sneaks away to find the final Poneglyph.</button>
+    </div>
+ 
     <script src="script.js"></script> 
 </body>
 </html>
