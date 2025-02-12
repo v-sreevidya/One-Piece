@@ -3,43 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Piece: The Final War</title>
+    <title>One Piece Adventure</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-   
-    <div class="story-container">
-        <textarea id="storyText" readonly></textarea>
+    <audio id="background-music" autoplay loop>
+        <source src="images/binks.mpeg" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div id="start-screen">
+        
+        <p>Embark on a journey to become the Pirate King!</p>
+        <button id="start-button">Start Game</button>
     </div>
 
-    <div id="hiddenStories">
-        <!--Section 1-->
-        <p data-image="images/background1.webp">For centuries, the world has been bound by chains—secrets buried in the Void Century, the iron grip of the Celestial Dragons, and the absolute rule of the World Government. The truth of the world has remained hidden, and those who seek freedom have been hunted down, silenced before they could shake the foundations of power.</p>
-        <p data-image="images/background1.webp">But now, the tides have turned.
-
-Monkey D. Luffy, the man who would become Pirate King, has reached the final battleground. </p>
-        <p data-image="images/background1.webp"> Alongside the Straw Hat Pirates, the Revolutionary Army, and allies from every corner of the sea, he launches an all-out assault on Mariejois, the very heart of oppression.Their enemy? Imu—the shadow ruler of the world, an existence that predates all known history. With powers beyond comprehension and the backing of the Five Elders, Imu seeks to erase all who dare defy them.</p>
-        <p data-image="images/background1.webp">This is the last stand. The battle that will shape the future. And in war, there is always a price to pay.</p>
-        <!--Section 2-->
-        <p data-image="images/sceneone.jpg">The sky above Mariejois is blackened with smoke, the sacred city now a battlefield of fire and ruin. The Revolutionary Army, pirate alliances, and ancient forces clash against the full might of the World Government—Admirals, Holy Knights, and the terrifying Five Elders in their awakened forms.</p>
-        <p data-image="images/sceneone.jpg">Amidst the chaos, Luffy and the Straw Hat Pirates push forward, fighting through the strongest enemies they have ever faced. The air trembles as Zoro’s swords clash against the steel of an Admiral, and Sanji’s kicks break the sound barrier, tearing through the enemy ranks.</p>
-        <p data-image="images/imu.jpg">But then, a presence unlike anything they have ever felt descends upon the battlefield. A chilling silence spreads through the war-torn city as Imu steps forward, shrouded in an aura darker than the abyss itself. The ground quivers beneath their presence. </p>
-        <p data-image="images/imu.jpg">Luffy grins. His eyes burn with determination as his body twists, his heartbeat drumming like a festival. In an instant, his form warps—Gear 5 erupts, his laughter echoing across Mariejois like a declaration of war.</p>
-
-       
-        <p data-video="images/gear5video.mp4" data-choice="true">"I don’t care who you are!" Luffy roars. "I’m kicking you out of that throne!"</p>
+    <div id="game-container" style="display: none;">
+        
+        <p id="story-text"></p>
+        <div id="choices-container"></div>
     </div>
 
-   
-    <div id="dialogueBox" class="dialogue-box" style="display: none;"></div>
-
-   
-    <div class="choices" id="choicesContainer" style="display: none;">
-        <button class="premium-choice" onclick="chooseOption(1)">Luffy charges straight at Imu, unleashing his strongest attack.</button>
-        <button onclick="chooseOption(2)">Zoro and Sanji lead the charge, cutting through Imu’s elite guards.</button>
-        <button onclick="chooseOption(3)">Robin sneaks away to find the final Poneglyph.</button>
-    </div>
- 
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
 </body>
 </html>

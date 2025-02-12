@@ -1,139 +1,151 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+
 body {
-    height: 100vh;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: cover;
-    background-position: center;
-    transition: background 1s ease-in-out; 
-}
-
-.story-container {
-    background: #f5deb3; 
-    padding: 20px;
-    border-radius: 15px;
-    width: auto;
-    max-width: 800px;
-    min-width: 300px;
-    height: auto;
-    min-height: 50px;
-    z-index: 55;
-    text-align: center;
-    font-family: "Georgia", serif;
-    color: black;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
-    border: 3px solid #d2b48c;
-    transition: height 0.5s ease-in-out, width 0.5s ease-in-out;
-    position: relative; 
-}
-
-#hiddenStories p {
-    display: none;
-}
-
-textarea {
-    width: 100%;
-    min-height: 100px;
-    height: auto;
-    border: none;
-    outline: none;
-    resize: none;
-    background: transparent;
-    font-size: 20px;
-    font-weight: bolder;
-    line-height: 1.6;
-    font-family: inherit;
-    color: #5a4635;
-    transition: opacity 1s ease-in-out;
-    overflow: hidden;
-}
-
-
-
-.choices {
-    position: relative; 
-    bottom: 0;
-    display: flex;
-    left: 20%;
-    transform: translateX(-50%);
+    font-family: 'Roboto', sans-serif;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-    max-width: 800px;
-    margin-top: 20px; 
+    justify-content: flex-end; 
+    align-items: center; 
+    height: 100vh; 
+    margin: 0;
+    
+   
+    
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    transition: background 0.5s ease-in-out; 
+    position: relative;
+    color: white;
 }
 
-.choices button {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 80%;
-    display: flex;
-    max-width: 400px;
-    padding: 12px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #5a4635;
-    background: #f5deb3;
-    border: 2px solid #d2b48c;
-    border-radius: 25px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
-}
 
-.choices button:hover {
-    background: #e6c29d;
-    transform: scale(1.05);
-}
-.video-container {
-    position: fixed;
-    top: 0;
-    left: 0;
+#start-screen {
+    background-image: url('images/one.jpg');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+   
+  
     width: 100%;
     height: 100vh;
-    z-index: -1; 
-    overflow: hidden;
-}
-
-.video-container video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.foreground-character {
-    position: fixed;
-    bottom: 0;
-    left: 9%; 
-    width: 500px; 
-    height: auto;
-    z-index: 100; 
-    pointer-events: none; 
-    animation: fadeIn 2s ease-in-out;
-}
-
-.foreground-character1{
-    position: fixed;
-    bottom: 0;
-    right: 9%;
-    width: 500px; 
-    height: auto;
-    z-index: 100; 
-    pointer-events: none; 
-    animation: fadeIn 2s ease-in-out;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(50px); }
-    to { opacity: 1; transform: translateY(0); }
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 10;
+    
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-end; 
+    align-items: center; 
 }
 
 
 
+#start-button {
+    background: linear-gradient(45deg, #00e1ff, #0078ff);
+    color: black;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(0, 225, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
 
+#start-button:hover {
+    background: linear-gradient(45deg, #0078ff, #00e1ff);
+    box-shadow: 0px 0px 20px rgba(0, 225, 255, 1);
+}
+
+
+#game-container {
+    background:rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    padding: 40px;
+    width: 70%;
+   
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: white;
+    /* box-shadow: 0px 6px 20px rgba(56, 56, 73, 0.9);  */
+    margin-bottom: 30px;
+    
+  
+    
+    background-size: cover;
+    background-position: center;
+    
+}
+
+
+
+
+
+
+#story-text {
+    font-size: 23px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #e5e5e5;
+}
+
+
+#choices-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+button {
+    background: linear-gradient(45deg, #0078ff, #00e1ff); 
+    color: black;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #0078ff, #00e1ff);
+    box-shadow:  0px 4px 10px rgba(255, 92, 88, 0.6);
+}
+
+button:active {
+    
+    transform: scale(0.95);
+}
+
+
+@media (max-width: 768px) {
+    #start-screen, #game-container {
+        width: 85%;
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+
+    #story-text {
+        font-size: 16px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 10px;
+    }
+}

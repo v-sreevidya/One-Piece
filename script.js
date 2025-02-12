@@ -1,218 +1,133 @@
-const storyText = document.getElementById("storyText");
-const hiddenStories = document.querySelectorAll("#hiddenStories p");
-const burningSound = new Audio("images/firesound.ogg");
-const choicesContainer = document.getElementById("choicesContainer");
-const dialogueBox = document.getElementById("dialogueBox");
+const story = {
+    start: {
+        text: "You set sail from Dawn Island, determined to find the One Piece! Do you visit Loguetown first or head straight to the Grand Line?",
+        choices: [
+            { text: "Go to Loguetown", next: "loguetown" },
+            { text: "Sail to the Grand Line", next: "grandLine" }
+            
+        ],
+        background:"images/background1.webp"
+        
+    },
+    loguetown: {
+        text: "You arrive at Loguetown, the city where Gol D. Roger was executed. Do you explore or steal a ship upgrade?",
+        choices: [
+            { text: "Explore the city", next: "exploreCity" },
+            { text: "Steal an upgrade", next: "stealUpgrade" }
+        ],
+        background:"images/Loguetown.jpeg"
+    },
+    grandLine: {
+        text: "You brave the treacherous waters of Reverse Mountain! Do you trust your navigator or steer the ship yourself?",
+        choices: [
+            { text: "Trust the navigator", next: "navigator" },
+            { text: "Steer yourself", next: "steerShip" }
+        ],
+        background:"images/water.jpeg"
+    },
+    exploreCity: {
+        text: "You meet a mysterious swordsman who offers to join your crew! Do you accept?",
+        choices: [
+            { text: "Accept the swordsman", next: "recruitSwordsman" },
+            { text: "Decline and move on", next: "declineSwordsman" }
+        ],
+        background:"images/zoroluffy.jpg"
+    },
+    stealUpgrade: {
+        text: "You get caught by the Marines! You're thrown in Impel Down! Game Over.",
+        choices: [{ text: "Restart", next: "start" }],
+        background:"images/jail.jpeg"
+    },
+    navigator: {
+        text: "Your navigator guides you safely into the Grand Line. Do you head for Alabasta or Skypiea?",
+        choices: [
+            { text: "Go to Alabasta", next: "alabasta" },
+            { text: "Go to Skypiea", next: "skypiea" }
+        ],
+        background:"images/grandline.jpg"
+    },
+    steerShip: {
+        text: "You crash into the Red Line and sink. Game Over.",
+        choices: [{ text: "Restart", next: "start" }],
+        background:"images/redline.jpeg"
+    },
+    recruitSwordsman: {
+        text: "The swordsman is powerful and helps you defeat enemies! You continue your journey with a strong crew.",
+        choices: [{ text: "Continue", next: "grandLine" }],
+        background:"images/roro.webp"
+    },
+    declineSwordsman: {
+        text: "You move on alone, but without strong allies, you struggle. Game Over.",
+        choices: [{ text: "Restart", next: "start" }],
+        background:"images/boat.jpeg"
+    },
+    alabasta: {
+        text: "You  defeat Crocodile and earn a powerful ally! Do you seek an even greater challenge?",
+        choices: [
+            { text: "Face an Emperor", next: "faceEmperor" },
+            { text: "Find a Poneglyph", next: "poneglyph" }
+        ],
+        background:"images/croc.jpeg"
+    },
+    skypiea: {
+        text: "You battle Enel and claim his gold! You now have enough treasure to continue your adventure.",
+        choices: [{ text: "Sail forward", next: "faceEmperor" }],
+        background:"images/enel.jpeg"
+    },
+    faceEmperor: {
+        text: "You challenge an Emperor of the Sea! Do you fight Kaido or Big Mom?",
+        choices: [
+            { text: "Fight Kaido", next: "kaidoFight" },
+            { text: "Fight Big Mom", next: "bigMomFight" }
+        ],
+        background:"images/kaido.jpg"
+    },
+    poneglyph: {
+        text: "You discover an important clue to the One Piece! You are one step closer to becoming Pirate King!",
+        choices: [{ text: "Continue", next: "faceEmperor" }],
+        background:"images/poly.jpeg"
+    },
+    kaidoFight: {
+        text: "Kaido is too strong! He defeats you. Game Over.",
+        choices: [{ text: "Restart", next: "start" }],
+        background:"images/kk.jpeg"
+    },
+    bigMomFight: {
+        text: "You defeat Big Mom and make history! You are now one of the strongest pirates in the world!",
+        choices: [{ text: "Claim the One Piece", next: "onePiece" }],
+        background:"images/luffy.png"
+    },
+    onePiece: {
+        text: "After years of adventure, you finally find the One Piece! You are the new Pirate King!",
+        choices: [{ text: "Restart", next: "start" }],
+        background:"images/king.jpeg"
+    }
+};
 
-burningSound.volume = 1.0;
-burningSound.muted = false;
-document.addEventListener("click", function () {
-    burningSound.play().catch(error => console.error("Audio Play Error:", error));
+const gameContainer = document.getElementById("game-container");
+const startScreen = document.getElementById("start-screen");
+const startButton = document.getElementById("start-button");
+const storyText = document.getElementById("story-text");
+const choicesContainer = document.getElementById("choices-container");
+
+startButton.addEventListener("click", () => {
+    startScreen.style.display = "none";
+    gameContainer.style.display = "block";
+    updateStory("start");
 });
 
-let index = -1;
-let intervalId;
-let isPaused = false;
+function updateStory(node) {
+    storyText.textContent = story[node].text;
+    choicesContainer.innerHTML = "";
 
-
-
-function changeScene() {
-    if (isPaused) return;
-   
-    const currentStory = hiddenStories[index];
-    storyText.value = currentStory.textContent;
-
-    const storyContainer = document.querySelector(".story-container");
-    storyContainer.style.height = "auto";
-    storyContainer.style.width = "auto";
-    storyText.style.height = "auto";
-    storyText.style.height = storyText.scrollHeight + "px";
-
-    let videoContainer = document.querySelector(".video-container");
-
-    if (index === 8) {
-        
-        const videoPath = currentStory.getAttribute("data-video");
-
-        if (videoPath) {
-            if (!videoContainer) {
-                videoContainer = document.createElement("div");
-                videoContainer.classList.add("video-container");
-                videoContainer.innerHTML = `
-                    <video autoplay loop muted playsinline>
-                        <source src="${videoPath}" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                `;
-                document.body.prepend(videoContainer);
-            } else {
-                videoContainer.querySelector("video source").src = videoPath;
-                videoContainer.querySelector("video").load();
-            }
-        }
-
-        choicesContainer.style.display = "flex";  
-
-    } else {
-        // Hide video and choices from index 9 onwards
-        if (videoContainer) {
-            videoContainer.remove();
-        }
-
-        if (index > 8) {
-            choicesContainer.style.display = "none";
-        }
-
-        
-        document.body.style.backgroundImage = `url(${currentStory.getAttribute("data-image")})`;
-        document.body.style.backgroundSize = "cover";
-        document.body.style.backgroundPosition = "center";
-        document.body.style.transition = "background 1s ease-in-out";
-    }
-
-   
-    if (index !== 8) {
-        document.body.style.backgroundImage = `url(${currentStory.getAttribute("data-image")})`;
-    }
-
-    //Sound effects
-    if (index >= 4 && index <= 10) {
-        burningSound.loop = true;
-        burningSound.play();
-    } else {
-        burningSound.pause();
-        burningSound.currentTime = 0;
-    }
-
-
-
-    //choice1 logic
-    if (window.location.pathname.includes("choice1.html")) {
-        
-        let zoroImage = document.querySelector(".foreground-character");
-        let sanjiImage = document.querySelector(".foreground-character1");
-        if (index === 0) {
-            storyText.value = hiddenStories[index].textContent; // Show first story
-        }
-        if (index === 1) {  
-           
-            if (!zoroImage) {
-                zoroImage = document.createElement("img");
-                zoroImage.src = "../images/zoro1.png";
-                zoroImage.alt = "Zoro";
-                zoroImage.classList.add("foreground-character");
-                document.body.appendChild(zoroImage);
-            }
-        } else {
-         
-            if (zoroImage) {
-                zoroImage.remove();
-            }
-        }
     
-        if (index === 2) {  
-            // Sanji for index 2
-            if (!sanjiImage) {
-                sanjiImage = document.createElement("img");
-                sanjiImage.src = "../images/sanji1.png";
-                sanjiImage.alt = "Sanji";
-                sanjiImage.classList.add("foreground-character1");
-                document.body.appendChild(sanjiImage);
-            }
-        } else {
-           
-            if (sanjiImage) {
-                sanjiImage.remove();
-            }
-        }
-    }
-    
-    
-    if (index < hiddenStories.length - 1) {
-        index++;
-    } else {
-        clearInterval(intervalId);
-    }
+    document.body.style.backgroundImage = `url('${story[node].background}')`;
+
+    story[node].choices.forEach(choice => {
+        const button = document.createElement("button");
+        button.textContent = choice.text;
+        button.onclick = () => updateStory(choice.next);
+        choicesContainer.appendChild(button);
+    });
 }
 
-
-//choice2 logic
-if (window.location.pathname.includes("choice2.html")) {
-    let zoroImage = document.querySelector(".foreground-character");
-    let sanjiImage = document.querySelector(".foreground-character1");
-    if (index === 0) {
-        storyText.value = hiddenStories[index].textContent; // Show first story
-    }
-    if (index === 1) {  
-       
-        if (!zoroImage) {
-            zoroImage = document.createElement("img");
-            zoroImage.src = "../images/zoro1.png";
-            zoroImage.alt = "Zoro";
-            zoroImage.classList.add("foreground-character");
-            document.body.appendChild(zoroImage);
-        }
-    } else {
-        
-        if (zoroImage) {
-            zoroImage.remove();
-        }
-    }
-
-    if (index === 2) {  
-       
-        if (!sanjiImage) {
-            sanjiImage = document.createElement("img");
-            sanjiImage.src = "../images/sanji1.png";
-            sanjiImage.alt = "Sanji";
-            sanjiImage.classList.add("foreground-character1");
-            document.body.appendChild(sanjiImage);
-        }
-    } else {
-        
-        if (sanjiImage) {
-            sanjiImage.remove();
-        }
-    }
-}
-
-
-if (index < hiddenStories.length - 1) {
-    index++;
-} else {
-    clearInterval(intervalId);
-}
-
-
-
-
-function chooseOption(choice) {
-    
-    document.getElementById("hiddenStories").style.display = "none";
-    document.getElementById("storyText").style.display = "none";
-    document.getElementById("choicesContainer").style.display = "none";
-
-    const videoContainer = document.querySelector(".video-container");
-    if (videoContainer) {
-        videoContainer.remove();
-    }
-
-    if (choice === 1) {
-        window.location.href = "Scene1/choice1.html"; 
-    }
-    if (choice === 2) {
-        window.location.href = "Scene1/choice2.html"; 
-    }
-}
-
-document.addEventListener("keydown", function (event) {
-    if (event.code === "Space") {
-        event.preventDefault();
-        togglePause();
-    }
-});
-
-document.addEventListener("click", changeScene);
-document.getElementById("storyText").addEventListener("click", changeScene);
-
-changeScene();
