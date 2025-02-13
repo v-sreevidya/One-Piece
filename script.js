@@ -124,7 +124,7 @@ function updateStory(node) {
         console.error("Invalid story node:", node);
         return;
     }
-    
+    localStorage.setItem("currentNode", node);
     document.body.style.backgroundImage = `url('${story[node].background}')`;
 
     story[node].choices.forEach(choice => {
@@ -134,4 +134,12 @@ function updateStory(node) {
         choicesContainer.appendChild(button);
     });
 }
+window.onload = function() {
+    const savedNode = localStorage.getItem("currentNode");
+    if (savedNode) {
+        startScreen.style.display = "none";
+        gameContainer.style.display = "block";
+        updateStory(savedNode);
+    }
+};
 
