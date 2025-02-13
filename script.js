@@ -52,9 +52,14 @@ const story = {
         background:"images/redline.jpeg"
     },
     recruitSwordsman: {
-        text: "The swordsman is powerful and helps you defeat enemies! You continue your journey with a strong crew.",
-        choices: [{ text: "Continue", next: "grandLine" }],
+        text: "The swordsman is powerful and helps you defeat enemies! You continue your journey with a strong crew to the Grand Line.",
+        choices: [{ text: "Solve the puzzle to continue", next: "swordsmanPuzzle" }],
         background:"images/roro.webp"
+    },
+    swordsmanPuzzle: {
+        text: " 'You are in a dark room with only one match. There is a candle, a lantern, and a fireplace. Which do you light first?'",
+        choices: [], 
+        background: "images/background1.webp"
     },
     declineSwordsman: {
         text: "You move on alone, but without strong allies, you struggle. Game Over.",
@@ -94,14 +99,20 @@ const story = {
     },
     bigMomFight: {
         text: "You defeat Big Mom and make history! You are now one of the strongest pirates in the world!",
-        choices: [{ text: "Claim the One Piece", next: "onePiece" }],
+        choices: [{ text: "Solve the final puzzle", next: "onePiecePuzzle" }],
         background:"images/luffy.png"
     },
     onePiece: {
         text: "After years of adventure, you finally find the One Piece! You are the new Pirate King!",
         choices: [{ text: "Restart", next: "start" }],
         background:"images/king.jpeg"
+    },
+    onePiecePuzzle :{
+        text: " Unscramble the letters: ‘ULHAG AETL’",
+        choices: [],
+        background: "images/background1.webp"
     }
+    
 };
 
 const gameContainer = document.getElementById("game-container");
@@ -124,8 +135,52 @@ function updateStory(node) {
         console.error("Invalid story node:", node);
         return;
     }
-    // localStorage.setItem("currentNode", node);
+   
     document.body.style.backgroundImage = `url('${story[node].background}')`;
+    if (node === "onePiecePuzzle") {
+       
+        const puzzleDiv = document.createElement("div");
+        puzzleDiv.classList.add("puzzle-container");
+
+       
+        const input = document.createElement("input");
+        input.type = "text";
+        
+        input.style.padding = "20px";
+        input.style.borderRadius = "5px";
+        input.style.border = "none";
+
+        
+        const submitButton = document.createElement("button");
+        submitButton.textContent = "Submit";
+        submitButton.onclick = () => checkFinalPuzzle(input.value.trim().toLowerCase());
+
+        puzzleDiv.appendChild(input);
+        puzzleDiv.appendChild(submitButton);
+
+        
+        choicesContainer.appendChild(puzzleDiv);
+    } 
+    if (node === "swordsmanPuzzle") {
+       
+        const puzzleDiv = document.createElement("div");
+        puzzleDiv.classList.add("puzzle-container");
+
+        const input = document.createElement("input");
+        input.type = "text";
+        
+        input.style.padding = "20px";
+        input.style.borderRadius = "5px";
+        input.style.border = "none";
+
+        const submitButton = document.createElement("button");
+        submitButton.textContent = "Submit";
+        submitButton.onclick = () => checkSwordsmanPuzzle(input.value.trim().toLowerCase());
+
+        puzzleDiv.appendChild(input);
+        puzzleDiv.appendChild(submitButton);
+        choicesContainer.appendChild(puzzleDiv);
+    }else {
 
     story[node].choices.forEach(choice => {
         const button = document.createElement("button");
@@ -134,12 +189,23 @@ function updateStory(node) {
         choicesContainer.appendChild(button);
     });
 }
-// window.onload = function() {
-//     const savedNode = localStorage.getItem("currentNode");
-//     if (savedNode) {
-//         startScreen.style.display = "none";
-//         gameContainer.style.display = "block";
-//         updateStory(savedNode);
-//     }
-// };
+}
+function checkFinalPuzzle(answer) {
+    const correctAnswer = "laugh tale";
+
+    if (answer === correctAnswer) {
+        updateStory("onePiece");
+    } else {
+        storyText.innerHTML = "Wrong answer! The treasure remains hidden...";
+    }
+}
+function checkSwordsmanPuzzle(answer) {
+    if (answer === "match") { 
+        updateStory("grandLine"); 
+    } else {
+        storyText.innerHTML = "Wrong answer! Try again.";
+    }
+}
+
+
 
