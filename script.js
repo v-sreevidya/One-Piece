@@ -13,7 +13,7 @@ const story = {
         text: "You arrive at Loguetown, the city where Gol D. Roger was executed. Do you explore or steal a ship upgrade?",
         choices: [
             { text: "Explore the city", next: "exploreCity" },
-            { text: "Steal an upgrade", next: "stealUpgrade" }
+            { text: "Steal a ship", next: "stealShip" }
         ],
         background:"images/Loguetown.jpeg"
     },
@@ -33,7 +33,7 @@ const story = {
         ],
         background:"images/zoroluffy.jpg"
     },
-    stealUpgrade: {
+    stealShip: {
         text: "You get caught by the Marines! You're thrown in Impel Down! Game Over.",
         choices: [{ text: "Restart", next: "start" }],
         background:"images/jail.jpeg"
