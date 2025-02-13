@@ -105,8 +105,8 @@ const story = {
 };
 
 const gameContainer = document.getElementById("game-container");
-const startScreen = document.getElementById("start-screen");
-const startButton = document.getElementById("start-button");
+const startScreen = document.getElementById("screen1");
+const startButton = document.getElementById("screen1-button");
 const storyText = document.getElementById("story-text");
 const choicesContainer = document.getElementById("choices-container");
 
@@ -119,7 +119,11 @@ startButton.addEventListener("click", () => {
 function updateStory(node) {
     storyText.textContent = story[node].text;
     choicesContainer.innerHTML = "";
-
+   
+    if (!story[node]) {
+        console.error("Invalid story node:", node);
+        return;
+    }
     
     document.body.style.backgroundImage = `url('${story[node].background}')`;
 

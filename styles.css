@@ -16,13 +16,16 @@ body {
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 
-    transition: background 0.5s ease-in-out; 
+  
+        
+    
+    
     position: relative;
     color: white;
 }
 
 
-#start-screen {
+#screen1 {
     background-image: url('images/one.jpg');
     background-size: cover; 
     background-position: center;
@@ -44,7 +47,7 @@ body {
 
 
 
-#start-button {
+#screen1-button {
     background: linear-gradient(45deg, #00e1ff, #0078ff);
     color: black;
     font-size: 22px;
@@ -59,13 +62,14 @@ body {
     letter-spacing: 2px;
 }
 
-#start-button:hover {
+#screen1-button:hover {
     background: linear-gradient(45deg, #0078ff, #00e1ff);
     box-shadow: 0px 0px 20px rgba(0, 225, 255, 1);
 }
 
 
 #game-container {
+    display: none;
     background:rgba(0, 0, 0, 0.5);
     border-radius: 20px;
     padding: 40px;
@@ -131,7 +135,8 @@ button:active {
 
 
 @media (max-width: 768px) {
-    #start-screen, #game-container {
+   
+    #screen1, #game-container {
         width: 85%;
         padding: 30px;
     }
