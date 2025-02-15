@@ -4,10 +4,8 @@ const story = {
         choices: [
             { text: "Go to Loguetown", next: "loguetown" },
             { text: "Sail to the Grand Line", next: "grandLine" }
-            
         ],
-        background:"images/background1.webp"
-        
+        image: "images/background1.webp"
     },
     loguetown: {
         text: "You arrive at Loguetown, the city where Gol D. Roger was executed. Do you explore or steal a ship upgrade?",
@@ -15,7 +13,7 @@ const story = {
             { text: "Explore the city", next: "exploreCity" },
             { text: "Steal a ship", next: "stealShip" }
         ],
-        background:"images/Loguetown.jpeg"
+        image: "images/Loguetown.jpeg"
     },
     grandLine: {
         text: "You brave the treacherous waters of Reverse Mountain! Do you trust your navigator or steer the ship yourself?",
@@ -23,7 +21,7 @@ const story = {
             { text: "Trust the navigator", next: "navigator" },
             { text: "Steer yourself", next: "steerShip" }
         ],
-        background:"images/water.jpeg"
+        image: "images/water.jpeg"
     },
     exploreCity: {
         text: "You meet a mysterious swordsman who offers to join your crew! Do you accept?",
@@ -31,12 +29,12 @@ const story = {
             { text: "Accept the swordsman", next: "recruitSwordsman" },
             { text: "Decline and move on", next: "declineSwordsman" }
         ],
-        background:"images/zoroluffy.jpg"
+        image: "images/zoroluffy.jpg"
     },
     stealShip: {
         text: "You get caught by the Marines! You're thrown in Impel Down! Game Over.",
         choices: [{ text: "Restart", next: "start" }],
-        background:"images/jail.jpeg"
+        image: "images/jail.jpeg"
     },
     navigator: {
         text: "Your navigator guides you safely into the Grand Line. Do you head for Alabasta or Skypiea?",
@@ -44,27 +42,27 @@ const story = {
             { text: "Go to Alabasta", next: "alabasta" },
             { text: "Go to Skypiea", next: "skypiea" }
         ],
-        background:"images/grandline.jpg"
+        image: "images/grandline.jpg"
     },
     steerShip: {
         text: "You crash into the Red Line and sink. Game Over.",
         choices: [{ text: "Restart", next: "start" }],
-        background:"images/redline.jpeg"
+        image: "images/redline.jpeg"
     },
     recruitSwordsman: {
         text: "The swordsman is powerful and helps you defeat enemies! You continue your journey with a strong crew to the Grand Line.",
         choices: [{ text: "Solve the puzzle to continue", next: "swordsmanPuzzle" }],
-        background:"images/roro.webp"
+        image: "images/roro.webp"
     },
     swordsmanPuzzle: {
         text: " 'You are in a dark room with only one match. There is a candle, a lantern, and a fireplace. Which do you light first?'",
         choices: [], 
-        background: "images/background1.webp"
+        image: "images/background1.webp"
     },
     declineSwordsman: {
         text: "You move on alone, but without strong allies, you struggle. Game Over.",
         choices: [{ text: "Restart", next: "start" }],
-        background:"images/boat.jpeg"
+        image: "images/boat.jpeg"
     },
     alabasta: {
         text: "You  defeat Crocodile and earn a powerful ally! Do you seek an even greater challenge?",
@@ -72,12 +70,12 @@ const story = {
             { text: "Face an Emperor", next: "faceEmperor" },
             { text: "Find a Poneglyph", next: "poneglyph" }
         ],
-        background:"images/croc.jpeg"
+        image: "images/croc.jpeg"
     },
     skypiea: {
         text: "You battle Enel and claim his gold! You now have enough treasure to continue your adventure.",
         choices: [{ text: "Sail forward", next: "faceEmperor" }],
-        background:"images/enel.jpeg"
+        image: "images/enel.jpeg"
     },
     faceEmperor: {
         text: "You challenge an Emperor of the Sea! Do you fight Kaido or Big Mom?",
@@ -85,34 +83,33 @@ const story = {
             { text: "Fight Kaido", next: "kaidoFight" },
             { text: "Fight Big Mom", next: "bigMomFight" }
         ],
-        background:"images/kaido.jpg"
+        image: "images/kaido.jpg"
     },
     poneglyph: {
         text: "You discover an important clue to the One Piece! You are one step closer to becoming Pirate King!",
         choices: [{ text: "Continue", next: "faceEmperor" }],
-        background:"images/poly.jpeg"
+        image: "images/poly.jpeg"
     },
     kaidoFight: {
         text: "Kaido is too strong! He defeats you. Game Over.",
         choices: [{ text: "Restart", next: "start" }],
-        background:"images/kk.jpeg"
+        image: "images/kk.jpeg"
     },
     bigMomFight: {
         text: "You defeat Big Mom and make history! You are now one of the strongest pirates in the world!",
         choices: [{ text: "Solve the final puzzle", next: "onePiecePuzzle" }],
-        background:"images/luffy.png"
+        image: "images/luffy.png"
     },
     onePiece: {
         text: "After years of adventure, you finally find the One Piece! You are the new Pirate King!",
         choices: [{ text: "Restart", next: "start" }],
-        background:"images/king.jpeg"
+        image: "images/king.jpeg"
     },
     onePiecePuzzle :{
         text: " Unscramble the letters: ‘ULHAG AETL’",
         choices: [],
-        background: "images/background1.webp"
+        image: "images/background1.webp"
     }
-    
 };
 
 const gameContainer = document.getElementById("game-container");
@@ -128,48 +125,44 @@ startButton.addEventListener("click", () => {
 });
 
 function updateStory(node) {
-    storyText.textContent = story[node].text;
-    choicesContainer.innerHTML = "";
-   
     if (!story[node]) {
         console.error("Invalid story node:", node);
         return;
     }
+    storyText.textContent = story[node].text;
+    choicesContainer.innerHTML = "";
    
-    document.body.style.backgroundImage = `url('${story[node].background}')`;
+    const storyImage = document.getElementById("story-image");
+    storyImage.src = story[node].image;
     if (node === "onePiecePuzzle") {
-       
         const puzzleDiv = document.createElement("div");
         puzzleDiv.classList.add("puzzle-container");
 
-       
         const input = document.createElement("input");
         input.type = "text";
-        
-        input.style.padding = "20px";
+        input.style.padding = "10px";
         input.style.borderRadius = "5px";
         input.style.border = "none";
 
-        
         const submitButton = document.createElement("button");
         submitButton.textContent = "Submit";
         submitButton.onclick = () => checkFinalPuzzle(input.value.trim().toLowerCase());
 
+        const message = document.createElement("p");
+        message.id = "finalPuzzleMessage"; 
+        message.style.marginTop = "10px";
+
         puzzleDiv.appendChild(input);
         puzzleDiv.appendChild(submitButton);
-
-        
+        puzzleDiv.appendChild(message);
         choicesContainer.appendChild(puzzleDiv);
-    } 
-    if (node === "swordsmanPuzzle") {
-       
+    } else if (node === "swordsmanPuzzle") {
         const puzzleDiv = document.createElement("div");
         puzzleDiv.classList.add("puzzle-container");
 
         const input = document.createElement("input");
         input.type = "text";
-        
-        input.style.padding = "20px";
+        input.style.padding = "10px";
         input.style.borderRadius = "5px";
         input.style.border = "none";
 
@@ -177,35 +170,43 @@ function updateStory(node) {
         submitButton.textContent = "Submit";
         submitButton.onclick = () => checkSwordsmanPuzzle(input.value.trim().toLowerCase());
 
+        const message = document.createElement("p");
+        message.id = "swordsmanPuzzleMessage"; 
+        message.style.marginTop = "10px";
+
         puzzleDiv.appendChild(input);
         puzzleDiv.appendChild(submitButton);
+        puzzleDiv.appendChild(message);
         choicesContainer.appendChild(puzzleDiv);
-    }else {
+    } else {
+        story[node].choices.forEach(choice => {
+            const button = document.createElement("button");
+            button.textContent = choice.text;
+            button.onclick = () => updateStory(choice.next);
+            choicesContainer.appendChild(button);
+        });
+    }
+}
 
-    story[node].choices.forEach(choice => {
-        const button = document.createElement("button");
-        button.textContent = choice.text;
-        button.onclick = () => updateStory(choice.next);
-        choicesContainer.appendChild(button);
-    });
-}
-}
 function checkFinalPuzzle(answer) {
     const correctAnswer = "laugh tale";
+    const message = document.getElementById("finalPuzzleMessage");
 
     if (answer === correctAnswer) {
         updateStory("onePiece");
     } else {
-        storyText.innerHTML = "Wrong answer! The treasure remains hidden...";
+        message.textContent = "Wrong answer! The treasure remains hidden...";
+        message.style.color = "red";
     }
 }
+
 function checkSwordsmanPuzzle(answer) {
+    const message = document.getElementById("swordsmanPuzzleMessage");
+
     if (answer === "match") { 
         updateStory("grandLine"); 
     } else {
-        storyText.innerHTML = "Wrong answer! Try again.";
+        message.textContent = "Wrong answer! Try again.";
+        message.style.color = "red";
     }
 }
-
-
-
